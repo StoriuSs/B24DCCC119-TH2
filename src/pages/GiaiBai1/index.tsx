@@ -103,7 +103,7 @@ const GiaiBai1: React.FC = () => {
             dataIndex: 'result',
             key: 'result',
             render: (result: Result) => {
-                let color = result === 'Thắng' ? 'green' : result === 'Thua' ? 'red' : 'orange';
+                const color = result === 'Thắng' ? 'green' : result === 'Thua' ? 'red' : 'orange';
                 return <Tag color={color} style={{ fontWeight: 'bold' }}>{result.toUpperCase()}</Tag>;
             },
         },

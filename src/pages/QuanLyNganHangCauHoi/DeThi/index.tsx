@@ -109,10 +109,10 @@ const DeThi = () => {
 				message.error(
 					`Không đủ câu hỏi! Yêu cầu: ${req.count} câu [${req.difficulty}] - Khối "${blockName}". Hiện có: ${candidates.length} câu.`,
 				);
-				return; // Fail to generate
+				return;
 			}
 
-			// Randomly pick `req.count` questions
+			// Pick random
 			const shuffled = [...candidates].sort(() => 0.5 - Math.random());
 			selectedQuestions = [...selectedQuestions, ...shuffled.slice(0, req.count)];
 		}
