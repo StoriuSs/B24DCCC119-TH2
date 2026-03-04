@@ -49,6 +49,35 @@
 		icon: 'UnorderedListOutlined',
 	},
 
+	// QUẢN LÝ NGÂN HÀNG CÂU HỎI
+	{
+		name: 'Ngân hàng câu hỏi',
+		path: '/ngan-hang-cau-hoi',
+		icon: 'DatabaseOutlined',
+		routes: [
+			{
+				name: 'Khối kiến thức',
+				path: 'khoi-kien-thuc',
+				component: './QuanLyNganHangCauHoi/KhoiKienThuc',
+			},
+			{
+				name: 'Môn học',
+				path: 'mon-hoc',
+				component: './QuanLyNganHangCauHoi/MonHoc',
+			},
+			{
+				name: 'Câu hỏi',
+				path: 'cau-hoi',
+				component: './QuanLyNganHangCauHoi/CauHoi',
+			},
+			{
+				name: 'Đề thi',
+				path: 'de-thi',
+				component: './QuanLyNganHangCauHoi/DeThi',
+			},
+		],
+	},
+
 	// DANH MUC HE THONG
 	// {
 	// 	name: 'DanhMuc',
