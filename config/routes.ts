@@ -48,6 +48,12 @@
 		component: './TodoList',
 		icon: 'UnorderedListOutlined',
 	},
+	{
+		path: '/giai-bai-1',
+		name: 'Oẳn Tù Tì',
+		component: './GiaiBai1',
+		icon: 'ScissorOutlined',
+	},
 
 	// DANH MUC HE THONG
 	// {
