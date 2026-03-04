@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Card, Table, Button, Space, Modal, Form, Input, InputNumber, message } from 'antd';
+import { Card, Table, Button, Space, Modal, Form, Input, InputNumber, message, Popconfirm } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import type { ISubject } from '../typing';
 
@@ -9,7 +9,6 @@ const MonHoc = () => {
 	const [editingItem, setEditingItem] = useState<ISubject | null>(null);
 	const [form] = Form.useForm();
 
-	// Mock fetching data
 	useEffect(() => {
 		const stored = localStorage.getItem('subjects');
 		if (stored) {
@@ -22,6 +21,18 @@ const MonHoc = () => {
 	}, []);
 
 	const handleSave = (values: any) => {
+		const newCode = values.subjectCode.trim();
+		const newName = values.name.trim();
+
+		const isDuplicateCode = data.some(
+			(item) => item.subjectCode.toLowerCase() === newCode.toLowerCase() && item.id !== editingItem?.id
+		);
+		if (isDuplicateCode) {
+			message.error('Mã môn học đã tồn tại!');
+			return;
+		}
+		values.subjectCode = newCode;
+		values.name = newName;
 		let newData = [...data];
 		if (editingItem) {
 			newData = newData.map((item) => (item.id === editingItem.id ? { ...editingItem, ...values } : item));
@@ -45,12 +56,13 @@ const MonHoc = () => {
 	};
 
 	const columns = [
-		{ title: 'Mã môn học', dataIndex: 'subjectCode', key: 'subjectCode' },
-		{ title: 'Tên môn học', dataIndex: 'name', key: 'name' },
-		{ title: 'Số tín chỉ', dataIndex: 'credits', key: 'credits' },
+		{ title: 'Mã môn học', dataIndex: 'subjectCode', key: 'subjectCode', align: 'center' as const, },
+		{ title: 'Tên môn học', dataIndex: 'name', key: 'name', align: 'center' as const, },
+		{ title: 'Số tín chỉ', dataIndex: 'credits', key: 'credits', align: 'center' as const, },
 		{
 			title: 'Thao tác',
 			key: 'action',
+			align: 'center' as const,
 			render: (_: any, record: ISubject) => (
 				<Space size='middle'>
 					<Button
@@ -62,7 +74,15 @@ const MonHoc = () => {
 							setIsModalVisible(true);
 						}}
 					/>
-					<Button type='link' danger icon={<DeleteOutlined />} onClick={() => handleDelete(record.id)} />
+					<Popconfirm
+						title="Bạn có chắc chắn muốn xóa mục này?"
+						onConfirm={() => handleDelete(record.id)}
+						okText="Có"
+						cancelText="Không"
+						placement="topRight"
+					>
+						<Button type='link' danger icon={<DeleteOutlined />} />
+					</Popconfirm>
 				</Space>
 			),
 		},
